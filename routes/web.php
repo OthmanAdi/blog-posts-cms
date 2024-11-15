@@ -1,14 +1,8 @@
 <?php
 
-use App\Http\Controllers\BlogController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 
-// Remove or comment out the welcome route
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
-// Make root route go to blog
 Route::get('/', [BlogController::class, 'index']);
 
 Route::get('/blog', [BlogController::class, 'index'])->name('blog.index');

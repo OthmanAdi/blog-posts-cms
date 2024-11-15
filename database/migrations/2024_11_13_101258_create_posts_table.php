@@ -6,24 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up()
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
     {
-        Schema::create('blog_posts', function (Blueprint $table) {  
+        Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->text('content');
-            $table->text('excerpt')->nullable();
-            $table->json('categories')->nullable();
-            $table->string('status')->default('draft');
-            // REMOVED THE FUCKING FOREIGN KEY
-            // NO MORE author_id
             $table->timestamps();
         });
     }
 
-    public function down()
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
     {
-        Schema::dropIfExists('blog_posts');
+        Schema::dropIfExists('posts');
     }
 };
