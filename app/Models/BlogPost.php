@@ -1,12 +1,18 @@
 <?php
 
+namespace App\Models;
+
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Log;
+use Exception;
+
 
 
 class BlogPost extends AbstractContent
 {
     public function __construct(
-        protected string $title,
-        protected string $content,
+        protected string $title = "",
+        protected string $content = "",
         protected ?string $excerpt = null,
         protected array $categories = [],
         protected string $status = 'draft',
