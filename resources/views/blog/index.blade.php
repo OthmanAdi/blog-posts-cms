@@ -4,11 +4,11 @@
 
 @section('content')
 <div class="container mx-auto px-6 py-4">
-    <div class="griв gap-6">
-        @foreach ($posts as $post )
+    <div class="grid gap-6">
+        @foreach ($posts as $post)
         <article class="bd-white rounded-lg shadow p-6">
             <h2 class="text-2xl font-bold mb-4">
-                {{ $post->title}}
+                {{ $post->title }}
             </h2>
             <div class="pros max max-w-none">
                 {{ $post->content }}
