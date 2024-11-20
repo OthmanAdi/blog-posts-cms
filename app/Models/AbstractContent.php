@@ -1,5 +1,12 @@
 <?php
 
+namespace App\Models;
+
+use App\Interfaces\ContentInterface;
+
+use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+
 abstract class AbstractContent extends Model implements ContentInterface
 {
 //    welche Felder drufen nicht massenhaft befüllt werden
