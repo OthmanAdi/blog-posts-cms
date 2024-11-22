@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('content');
             $table->string('excerpt')->nullable();
-            $table->json('catagories')->nullable();
+            $table->json('categories')->nullable();
             $table->string('status')->default('draft');
             $table->timestamps();
         });

@@ -6,6 +6,8 @@ use App\Interfaces\ContentInterface;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
+
+
 abstract class AbstractContent extends Model implements ContentInterface{
 
      // welche Felder durfen NICHT massenhaft befuhlt werden
@@ -20,7 +22,6 @@ abstract class AbstractContent extends Model implements ContentInterface{
         return $this->title;
     }
 
-
     public function getContent(): string{
         return $this->content;
     }
@@ -32,7 +33,6 @@ abstract class AbstractContent extends Model implements ContentInterface{
     public function getAuthor(): ?User{
         return $this->author;
     }
-
 
     public function isPublished(): bool{
         return $this->status==='published';

@@ -6,49 +6,54 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redis;
 
-// Hauptzweck con caching system ist: Performsnce Optimisation fur blog-post
-// Radis Speichert Daten im RAM.
-// Haupdatenbank (MySQL) -- Cachdatenbank (Redis)
-class ContentCache {
-
-    //singeltion-instanz
+class ContentCache
+{
+    // Singleton-Instance
     private static ?self $instance = null;
     private $redis;
 
-    private function __construct() {
-        //Redis verbindung herstellen
+    private function __construct()
+    {
+        // Redis verbindung herstellen
         $this->redis = Redis::connection();
-     }
+    }
 
-        //Singeltone-Instanz Abrufen
-     public function gitInstance(): self {
-        //pruft ob singelton-instany existiert
+    // Singleton-Instanz Abrufen
+    public static function getInstance(): self
+    {
+        // Prüft ob Singleton-Instanz existiert
         if (self::$instance === null) {
             self::$instance = new self();
         }
         return self::$instance;
-     }
+    }
 
-     // haupt cache Funktion
-     public function remember(string $key, callable $callback, int $ttl = 3600) {
+    // Haupt-Cache Funktion
+    public function remember(string $key, callable $callback, int $ttl = 3600)
+    {
         try {
-            // Versuche daten aus Cach zu holen
+            // Versuche Daten aus Cache zu holen
             $value = $this->redis->get("blog:$key");
 
             // Wenn Daten im Cache sind
             if (!is_null($value)) {
-                return unserialize($value); // gib sie aus
+                return unserialize($value); // Gib sie aus
             }
 
-            $fresh = $callback(); // wenn nicht im cache - Hole die Daten neue
+            $fresh = $callback(); // Wenn nicht im Cache - Hole die Daten neu
 
-            $this->redis->setex("blog:$key", $ttl, serialize($fresh) );
-            //speichert im Cach
+            $this->redis->setex("blog:$key", $ttl, serialize($fresh));
+            // Speichert im Cache
             return $fresh;
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             Log::error("Cache Fehler: {$e->getMessage()}");
             return $callback();
-
         }
-     }
+    }
+
+    // Hinzufügen des getRedis() Methode
+    public function getRedis()
+    {
+        return $this->redis;
+    }
 }
